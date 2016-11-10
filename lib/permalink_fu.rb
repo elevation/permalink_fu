@@ -116,6 +116,7 @@ module PermalinkFu
       end
       if self.class.permalink_options[:scope]
         [self.class.permalink_options[:scope]].flatten.each do |scope|
+          scope = evaluate_method(scope) if scope.is_a?(Proc)
           value = send(scope)
           if value
             conditions.first << " and #{scope} = ?"

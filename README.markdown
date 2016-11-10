@@ -29,6 +29,12 @@ Permalinks are guaranteed unique: "foo-bar-2", "foo-bar-3" etc are used if there
 
 This means that two articles with the same `blog_id` can not have the same permalink, but two articles with different `blog_id`s can.
 
+Scope can also be passed as a Proc:
+
+    class Article < ActiveRecord::Base
+      has_permalink :title, :scope => Proc.new { |article| article.determine_scope }
+    end
+
 Two finders are provided:
 
     Article.find_by_permalink(params[:id])
